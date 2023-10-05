@@ -11,6 +11,7 @@ namespace PM.Domain.Entities
         [Column("id")]
         public long Id { get; set; }
 
+        [Required]
         [StringLength(200, ErrorMessage = "O campo Nome deve ter no máximo 200 caracteres.")]
         [Column("nome")]
         public string Nome { get; set; }

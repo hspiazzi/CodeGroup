@@ -19,8 +19,8 @@ namespace PM.Service.WebServices
         {
             try
             {
-                var pessoa = Aplicacao.Cadastro.Pessoa.Consultar(idMembro);
-                var projeto = Aplicacao.Cadastro.Projeto.Consultar(idProjeto);
+                var pessoa = new Aplicacao.Cadastro.Pessoa().Consultar(idMembro);
+                var projeto = new Aplicacao.Cadastro.Projeto().Consultar(idProjeto);
 
                 if (pessoa == null)
                     return new PMResponse { Codigo = 410, Sucesso = false, Mensagem = String.Format($"O Membro informado ({0}) não foi encontrado.", idMembro ) };

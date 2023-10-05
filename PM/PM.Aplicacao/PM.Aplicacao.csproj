@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IProjeto.cs" />
+    <Compile Include="Interfaces\IPessoa.cs" />
     <Compile Include="Cadastro\Pessoa.cs" />
     <Compile Include="Cadastro\Projeto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -74,7 +74,8 @@ namespace PM.Presentation.Web.Modulos.Cadastro.Projeto
         {
             try
             {
-                var lista = Aplicacao.Cadastro.Pessoa.Listar(new Domain.Dto.PessoaFiltroDto { Funcionario = true });
+                var pessoa = new Aplicacao.Cadastro.Pessoa();
+                var lista = pessoa.Listar(new Domain.Dto.PessoaFiltroDto { Funcionario = true });
 
                 // Popula controle:
                 this.comboGerente.GetStore().DataSource = lista;
@@ -104,7 +105,7 @@ namespace PM.Presentation.Web.Modulos.Cadastro.Projeto
         {
             try
             {
-                var projeto = Aplicacao.Cadastro.Projeto.Consultar(long.Parse(id));
+                var projeto = new Aplicacao.Cadastro.Projeto().Consultar(long.Parse(id));
                 if (projeto != null)
                 {
                     this.txtId.Text = projeto.Id.ToString();

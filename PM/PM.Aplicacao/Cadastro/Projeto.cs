@@ -10,24 +10,34 @@ using System.Transactions;
 
 namespace PM.Aplicacao.Cadastro
 {
-    public class Projeto : Domain.Entities.Projeto
+    public class Projeto : Domain.Entities.Projeto, IProjeto
     {
         public virtual string GerenteNome { get; set; }
+
+        private readonly IProjetoDao dao;
+
+        public Projeto()
+        {
+            if (dao == null)
+                this.dao = new ProjetoDao();
+        }
+
+        public Projeto(IProjetoDao _dao)
+        {
+            this.dao = _dao;
+        }
 
         /// <summary>
         /// Retorna uma lista de Projetos baseado no filtro informado.
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        public static List<Projeto> Listar(ProjetoFiltroDto filtro)
+        public List<Projeto> Listar(ProjetoFiltroDto filtro)
         {
             try
             {
-                using (ProjetoDao dao = new ProjetoDao())
-                {
-                    var dsProjeto = dao.Listar(filtro);
-                    return dsProjeto.Tables[0].ToList<Projeto>();
-                }
+                var dsProjeto = dao.Listar(filtro);
+                return dsProjeto.Tables[0].ToList<Projeto>();
             }
             catch (Exception ex)
             {
@@ -40,23 +50,20 @@ namespace PM.Aplicacao.Cadastro
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static Projeto Consultar(long id)
+        public Projeto Consultar(long id)
         {
             try
             {
-                using (ProjetoDao dao = new ProjetoDao())
+                var ds = dao.Consultar(id);
+
+                Projeto projeto = ds.Tables[0].ToList<Projeto>().FirstOrDefault();
+
+                if (projeto != null)
                 {
-                    var ds = dao.Consultar(id);
-
-                    Projeto projeto = ds.Tables[0].ToList<Projeto>().FirstOrDefault();
-
-                    if (projeto != null)
-                    {
-                        projeto.Membros = ds.Tables[1].ToList<Pessoa>();
-                    }
-
-                    return projeto;
+                    projeto.Membros = ds.Tables[1].ToList<Pessoa>();
                 }
+
+                return projeto;
             }
             catch (Exception ex)
             {
@@ -109,14 +116,9 @@ namespace PM.Aplicacao.Cadastro
                 {
                     try
                     {
-                        using (ProjetoDao dao = new ProjetoDao())
-                        {
-                            var dsProjeto = dao.Inserir(this);
-                            
-                            scope.Complete();
-
-                            return dsProjeto.Tables[0].ToList<Projeto>().FirstOrDefault();
-                        }
+                        var dsProjeto = dao.Inserir(this);
+                        scope.Complete();
+                        return dsProjeto.Tables[0].ToList<Projeto>().FirstOrDefault();
                     }
                     catch (Exception ex)
                     {
@@ -137,14 +139,9 @@ namespace PM.Aplicacao.Cadastro
             {
                 try
                 {
-                    using (ProjetoDao dao = new ProjetoDao())
-                    {
-                        var rows = dao.InserirMembro(idProjeto, idMembro);
-
-                        scope.Complete();
-
-                        return rows;
-                    }
+                    var rows = dao.InserirMembro(idProjeto, idMembro);
+                    scope.Complete();
+                    return rows;
                 }
                 catch (Exception ex)
                 {
@@ -176,12 +173,9 @@ namespace PM.Aplicacao.Cadastro
                 {
                     try
                     {
-                        using (ProjetoDao dao = new ProjetoDao())
-                        {
-                            var dsProjeto = dao.Alterar(this);
-                            scope.Complete();
-                            return dsProjeto.Tables[0].ToList<Projeto>().FirstOrDefault();
-                        }
+                        var dsProjeto = dao.Alterar(this);
+                        scope.Complete();
+                        return dsProjeto.Tables[0].ToList<Projeto>().FirstOrDefault();
                     }
                     catch (Exception ex)
                     {
@@ -207,7 +201,7 @@ namespace PM.Aplicacao.Cadastro
         {
             var validationContext = new ValidationContext(this, null, null);
             var results = new List<ValidationResult>();
-            
+
             bool isValid = Validator.TryValidateObject(this, validationContext, results, true);
 
             var errorMessages = new StringBuilder();

@@ -91,9 +91,10 @@ Global
 		{EC70756C-E82E-44D1-BFAE-1C0E704C293D} = {9AD31C3C-CC7D-4208-8D45-C38F95B05E60}
 		{9AD31C3C-CC7D-4208-8D45-C38F95B05E60} = {FA3C7548-2DD3-423B-BBA6-A36F2A87EBF6}
 		{96DB2470-8F8C-471B-9DF2-3EE859672C2D} = {D986B859-3BDE-4399-B057-C14422A7DAE3}
+		{10C131E2-82CF-431C-86F8-C53C4E9CA848} = {D986B859-3BDE-4399-B057-C14422A7DAE3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 		SolutionGuid = {8E1BABB2-CB6D-4474-8AF8-5285352B8662}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal

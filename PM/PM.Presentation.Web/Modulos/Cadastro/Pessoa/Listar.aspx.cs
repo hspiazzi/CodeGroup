@@ -32,7 +32,7 @@ namespace PM.Presentation.Web.Modulos.Cadastro.Pessoa
                 PessoaFiltroDto filtro = new PessoaFiltroDto();
 
                 //Consulta Banco de Dados:
-                var lista = Aplicacao.Cadastro.Pessoa.Listar(filtro);
+                var lista = new Aplicacao.Cadastro.Pessoa().Listar(filtro);
 
                 //Preeenche lista:
                 this.gridPessoa.GetStore().DataSource = lista;
@@ -66,7 +66,7 @@ namespace PM.Presentation.Web.Modulos.Cadastro.Pessoa
                 {
                     var id = Int64.Parse(strId);
 
-                    var pessoa = Aplicacao.Cadastro.Pessoa.Consultar(id);
+                    var pessoa = new Aplicacao.Cadastro.Pessoa().Consultar(id);
                     if (pessoa != null)
                     {
                         if (pessoa.Excluir() > 0)

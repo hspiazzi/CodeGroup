@@ -1,4 +1,5 @@
-﻿using PM.Domain.Dto;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using PM.Domain.Dto;
 using PM.Domain.Entities;
 using System;
 using System.Data;
@@ -6,9 +7,9 @@ using System.Data.Common;
 
 namespace PM.Infra.Dao
 {
-    public class PessoaDao : BaseDao, IDisposable
+    public class PessoaDao : BaseDao, IDisposable, IPessoaDao
     {
-        public DataSet Listar(PessoaFiltroDto filtro) 
+        public DataSet Listar(PessoaFiltroDto filtro)
         {
             string proc = "[dbo].[PR_Pessoa_Sel]";
             using (DbCommand dbCommand = db.GetStoredProcCommand(proc))
@@ -21,7 +22,7 @@ namespace PM.Infra.Dao
                 return db.ExecuteDataSet(dbCommand);
             }
         }
-        
+
         public DataSet Consultar(long id)
         {
             string proc = "[dbo].[PR_Pessoa_Sel_Por_Id]";

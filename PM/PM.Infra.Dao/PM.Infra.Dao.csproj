@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDao.cs" />
+    <Compile Include="Interfaces\IPessoaDao.cs" />
+    <Compile Include="Interfaces\IProjetoDao.cs" />
     <Compile Include="PessoaDao.cs" />
     <Compile Include="ProjetoDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

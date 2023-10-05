@@ -6,7 +6,7 @@ using System.Data.Common;
 
 namespace PM.Infra.Dao
 {
-    public class ProjetoDao : BaseDao, IDisposable
+    public class ProjetoDao : BaseDao, IDisposable, IProjetoDao
     {
         public DataSet Listar(ProjetoFiltroDto filtro)
         {

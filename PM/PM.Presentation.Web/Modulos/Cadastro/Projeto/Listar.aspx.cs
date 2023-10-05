@@ -32,7 +32,7 @@ namespace PM.Presentation.Web.Modulos.Cadastro.Projeto
                 ProjetoFiltroDto filtro = new ProjetoFiltroDto();
 
                 //Consulta Banco de Dados:
-                var lista = Aplicacao.Cadastro.Projeto.Listar(filtro);
+                var lista = new Aplicacao.Cadastro.Projeto().Listar(filtro);
 
                 //Preeenche lista:
                 this.gridProjeto.GetStore().DataSource = lista;
@@ -66,7 +66,7 @@ namespace PM.Presentation.Web.Modulos.Cadastro.Projeto
                 {
                     var id = Int64.Parse(strId);
 
-                    var projeto = Aplicacao.Cadastro.Projeto.Consultar(id);
+                    var projeto = new Aplicacao.Cadastro.Projeto().Consultar(id);
                     if (projeto != null)
                     {
                         if (projeto.Excluir() > 0)

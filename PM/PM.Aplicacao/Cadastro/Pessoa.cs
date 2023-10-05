@@ -10,22 +10,32 @@ using System.Transactions;
 
 namespace PM.Aplicacao.Cadastro
 {
-    public class Pessoa : Domain.Entities.Pessoa
+    public class Pessoa : Domain.Entities.Pessoa, IPessoa
     {
+        private readonly IPessoaDao dao;
+
+        public Pessoa()
+        {
+            if(dao == null)
+                this.dao = new PessoaDao();
+        }
+
+        public Pessoa(IPessoaDao _dao)
+        {
+                this.dao = _dao;
+        }
+
         /// <summary>
         /// Retorna uma lista de Pessoas baseado no filtro informado.
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        public static List<Pessoa> Listar(PessoaFiltroDto filtro)
+        public List<Pessoa> Listar(PessoaFiltroDto filtro)
         {
             try
             {
-                using (PessoaDao dao = new PessoaDao())
-                {
-                    var ds = dao.Listar(filtro);
-                    return ds.Tables[0].ToList<Pessoa>();
-                }
+                var ds = dao.Listar(filtro);
+                return ds.Tables[0].ToList<Pessoa>();
             }
             catch (Exception ex)
             {
@@ -38,18 +48,13 @@ namespace PM.Aplicacao.Cadastro
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static Pessoa Consultar(long id)
+        public Pessoa Consultar(long id)
         {
             try
             {
-                using (PessoaDao dao = new PessoaDao())
-                {
-                    var ds = dao.Consultar(id);
-
-                    Pessoa pessoa = ds.Tables[0].ToList<Pessoa>().FirstOrDefault();
-
-                    return pessoa;
-                }
+                var ds = dao.Consultar(id);
+                Pessoa pessoa = ds.Tables[0].ToList<Pessoa>().FirstOrDefault();
+                return pessoa;
             }
             catch (Exception ex)
             {
@@ -65,10 +70,7 @@ namespace PM.Aplicacao.Cadastro
         {
             try
             {
-                using (PessoaDao dao = new PessoaDao())
-                {
-                    return dao.Excluir(this.Id);
-                }
+                return dao.Excluir(this.Id);
             }
             catch (Exception ex)
             {
@@ -98,14 +100,9 @@ namespace PM.Aplicacao.Cadastro
                 {
                     try
                     {
-                        using (PessoaDao dao = new PessoaDao())
-                        {
-                            var ds = dao.Inserir(this);
-
-                            scope.Complete();
-
-                            return ds.Tables[0].ToList<Pessoa>().FirstOrDefault();
-                        }
+                        var ds = dao.Inserir(this);
+                        scope.Complete();
+                        return ds.Tables[0].ToList<Pessoa>().FirstOrDefault();
                     }
                     catch (Exception ex)
                     {
@@ -138,16 +135,9 @@ namespace PM.Aplicacao.Cadastro
                 {
                     try
                     {
-                        using (PessoaDao dao = new PessoaDao())
-                        {
-                            var ds = dao.Alterar(this);
-                            
-                            scope.Complete();
-
-                            return ds.Tables[0].ToList<Pessoa>().FirstOrDefault();
-                        }
-
-                        
+                        var ds = dao.Alterar(this);
+                        scope.Complete();
+                        return ds.Tables[0].ToList<Pessoa>().FirstOrDefault();
                     }
                     catch (Exception ex)
                     {

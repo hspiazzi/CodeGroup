@@ -2,7 +2,6 @@
 using PM.Infra.Common.Extensions;
 using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace PM.Presentation.Web.Modulos.Cadastro.Pessoa
 {
@@ -70,7 +69,8 @@ namespace PM.Presentation.Web.Modulos.Cadastro.Pessoa
         {
             try
             {
-                var pessoa = Aplicacao.Cadastro.Pessoa.Consultar(long.Parse(id));
+                var pessoa = new Aplicacao.Cadastro.Pessoa().Consultar(long.Parse(id)); ;
+                
                 if (pessoa != null)
                 {
                     this.txtId.Text = pessoa.Id.ToString();

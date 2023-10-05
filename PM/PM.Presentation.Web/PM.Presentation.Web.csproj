@@ -232,7 +232,6 @@
     <Compile Include="Console.aspx.designer.cs">
       <DependentUpon>Console.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controller\MembroController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
