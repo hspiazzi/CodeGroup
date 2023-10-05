@@ -1,0 +1,47 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PM.Presentation.Web.SiteMaster" %>
+<%@ Register assembly="Ext.Net" namespace="Ext.Net" tagprefix="ext" %>
+
+<!DOCTYPE html>
+
+<html lang="pt">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Manager</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link href="Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.4.1.min.js"></script>
+    <script src="Scripts/modernizr-2.8.3.js"></script>
+
+    <script>
+        function getFilterValue() {
+            var value = this.getRawValue();
+            if (value && value[0] !== "*" && !Ext.net.FilterHeader.behaviour.getBehaviour("string", value))
+                return "*" + value;
+            return value;
+        }
+    </script>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body oncontextmenu="return false">
+    <form runat="server">
+        <ext:ResourceManager
+            ID="ResourceManager1"
+            runat="server"
+            DirectMethodNamespace="PM">
+        </ext:ResourceManager>
+        
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+
+        </asp:ContentPlaceHolder>
+        
+    </form>
+
+</body>
+</html>
